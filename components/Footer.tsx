@@ -19,11 +19,18 @@ export default function Footer() {
     >
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <Image
-          src="https://akmymdvyoepbxaqmfgzd.supabase.co/storage/v1/object/public/assets/subtrack-logo.png"
-          alt="SubTrack"
+          src="https://akmymdvyoepbxaqmfgzd.supabase.co/storage/v1/object/public/assets/subparse-logo.png"
+          alt="SubParse"
           width={110}
           height={28}
-          className="h-7 w-auto"
+          className="h-7 w-auto dark:hidden"
+        />
+        <Image
+          src="https://akmymdvyoepbxaqmfgzd.supabase.co/storage/v1/object/public/assets/dark-subparse-logo.png"
+          alt="SubParse"
+          width={110}
+          height={28}
+          className="h-7 w-auto hidden dark:block"
         />
 
         <div className="flex items-center gap-6">
@@ -54,7 +61,7 @@ export default function Footer() {
         </div>
 
         <p className="text-xs text-[var(--color-muted-foreground)]">
-          &copy; {new Date().getFullYear()} SubTrack. All rights reserved.
+          &copy; {new Date().getFullYear()} SubParse. All rights reserved.
         </p>
       </div>
     </motion.footer>

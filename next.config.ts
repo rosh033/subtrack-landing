@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         hostname: "akmymdvyoepbxaqmfgzd.supabase.co",
         pathname: "/storage/v1/object/public/**",
       },
+      {
+        protocol: "https",
+        hostname: "img.icons8.com",
+      },
     ],
   },
 };

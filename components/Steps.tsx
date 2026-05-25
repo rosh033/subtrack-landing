@@ -2,13 +2,14 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 
 const steps = [
   {
     number: "01",
     title: "Drop in a screenshot or email.",
     description:
-      "Works with billing receipts, confirmation emails, and app screenshots. If it has a price and a date, SubTrack can read it.",
+      "Works with billing receipts, confirmation emails, and app screenshots. If it has a price and a date, SubParse can read it.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
         <rect
@@ -241,20 +242,18 @@ const steps = [
           {[
             {
               name: "Apple Calendar",
-              icon: "🍎",
-              color: "oklch(0.97 0.02 280)",
+              icon: "https://img.icons8.com/?size=100&id=30840&format=png&color=000000",
             },
             {
               name: "Google Calendar",
-              icon: "📅",
-              color: "oklch(0.97 0.02 230)",
+              icon: "https://img.icons8.com/?size=100&id=WKF3bm1munsk&format=png&color=000000",
             },
           ].map(({ name, icon }) => (
             <button
               key={name}
               className="flex items-center gap-3 px-4 py-3 rounded-[var(--radius-lg)] border border-[var(--color-border)] hover:border-[oklch(0.76_0.20_122_/_0.5)] hover:bg-[oklch(0.76_0.20_122_/_0.04)] transition-all text-sm font-medium"
             >
-              <span className="text-base">{icon}</span>
+              <Image src={icon} alt={name} width={20} height={20} className="w-5 h-5" />
               {name}
               <span className="ml-auto text-[var(--color-muted-foreground)]">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -280,7 +279,7 @@ const steps = [
     number: "05",
     title: "Get a reminder the day before each renewal.",
     description:
-      "No more surprise charges. SubTrack notifies you 24 hours before any subscription renews so you have time to cancel if you want to.",
+      "No more surprise charges. SubParse notifies you 24 hours before any subscription renews so you have time to cancel if you want to.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
         <path
@@ -314,7 +313,7 @@ const steps = [
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between gap-2 mb-0.5">
               <span className="text-xs font-semibold text-[var(--color-foreground)]">
-                SubTrack
+                SubParse
               </span>
               <span className="text-[10px] text-[var(--color-muted-foreground)]">
                 now
@@ -424,7 +423,7 @@ export default function Steps() {
             transition={{ duration: 0.5, delay: 0.16 }}
             className="text-lg text-[var(--color-muted-foreground)] max-w-xl mx-auto"
           >
-            The whole point of SubTrack is zero friction. The less you have to
+            The whole point of SubParse is zero friction. The less you have to
             think about it, the more likely you are to actually use it.
           </motion.p>
         </div>

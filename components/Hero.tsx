@@ -91,7 +91,7 @@ export default function Hero() {
           transition={{ duration: 0.55, delay: 0.16 }}
           className="text-lg sm:text-xl text-[var(--color-muted-foreground)] leading-relaxed max-w-2xl font-[450]"
         >
-          SubTrack gives you one place to see every subscription and free trial
+          SubParse gives you one place to see every subscription and free trial
           you have. Get a reminder the day before each renewal and never pay for
           something you forgot about.
         </motion.p>
@@ -105,7 +105,7 @@ export default function Hero() {
         >
           <a
             id="hero-cta"
-            href="#"
+            href="https://app.subparse.com"
             className="brand-gradient text-[oklch(0.25_0.10_122)] font-semibold px-7 py-3.5 rounded-[var(--radius-xl)] shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)] hover:opacity-90 active:scale-[0.98] transition-all duration-200 text-base"
           >
             Start for free

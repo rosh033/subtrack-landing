@@ -59,7 +59,7 @@ export default function FinalCTA() {
               thank you.
             </motion.p>
             <motion.a
-              href="#"
+              href="https://app.subparse.com"
               initial={{ opacity: 0, y: 12 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.45, delay: 0.36, ease: [0.22, 1, 0.36, 1] }}
