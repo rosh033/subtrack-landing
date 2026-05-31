@@ -1,8 +1,30 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
+
+function ServiceLogo({ logoUrl, name }: { logoUrl: string; name: string }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <div className="w-7 h-7 rounded-md bg-[oklch(0.93_0_0)] flex-shrink-0 overflow-hidden flex items-center justify-center">
+      {failed ? (
+        <span className="text-[11px] font-semibold text-[var(--color-foreground)]">
+          {name[0]}
+        </span>
+      ) : (
+        <img
+          src={logoUrl}
+          alt={name}
+          width={28}
+          height={28}
+          className="w-full h-full object-cover"
+          onError={() => setFailed(true)}
+        />
+      )}
+    </div>
+  );
+}
 
 const steps = [
   {
@@ -72,7 +94,7 @@ const steps = [
     number: "02",
     title: "AI reads it and fills in the details.",
     description:
-      "Subscription name, cost, and renewal date — done in seconds. No typing, no copy-pasting. Just confirm and save.",
+      "Subscription name, cost, and renewal date. Done in seconds. No typing, no copy-pasting. Just confirm and save.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
         <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.5" />
@@ -124,7 +146,7 @@ const steps = [
     number: "03",
     title: "Everything lands in one dashboard.",
     description:
-      "See all your subscriptions and your total monthly spend at a glance. Active subs, free trials, upcoming renewals — all in one view.",
+      "See all your subscriptions and your total monthly spend at a glance. Active subs, free trials, upcoming renewals, all in one view.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
         <rect
@@ -180,16 +202,16 @@ const steps = [
         </div>
         <div className="flex flex-col gap-2">
           {[
-            { name: "Netflix", amount: "$15.99", trial: false },
-            { name: "Spotify", amount: "$11.99", trial: false },
-            { name: "Adobe CC", amount: "$59.99", trial: false },
-            { name: "Notion Pro", amount: "Free trial", trial: true },
-          ].map(({ name, amount, trial }) => (
+            { name: "Netflix", logoUrl: "https://akmymdvyoepbxaqmfgzd.supabase.co/storage/v1/object/public/assets/brand-logos/netflix.jpeg", amount: "$15.99", trial: false },
+            { name: "Spotify", logoUrl: "https://akmymdvyoepbxaqmfgzd.supabase.co/storage/v1/object/public/assets/brand-logos/spotify.jpeg", amount: "$11.99", trial: false },
+            { name: "Adobe CC", logoUrl: "https://akmymdvyoepbxaqmfgzd.supabase.co/storage/v1/object/public/assets/brand-logos/adobe.jpeg", amount: "$59.99", trial: false },
+            { name: "Notion Pro", logoUrl: "https://akmymdvyoepbxaqmfgzd.supabase.co/storage/v1/object/public/assets/brand-logos/notion.jpeg", amount: "Free trial", trial: true },
+          ].map(({ name, logoUrl, amount, trial }) => (
             <div
               key={name}
               className="flex items-center gap-3 px-3 py-2.5 rounded-[var(--radius-lg)] border border-[var(--color-border)] hover:bg-[var(--color-muted)] transition-colors"
             >
-              <div className="w-7 h-7 rounded-md bg-[oklch(0.93_0_0)] flex-shrink-0" />
+              <ServiceLogo logoUrl={logoUrl} name={name} />
               <span className="text-sm font-medium flex-1">{name}</span>
               <span
                 className={`text-xs font-semibold ${trial ? "text-[oklch(0.45_0.14_122)]" : "text-[var(--color-foreground)]"}`}
@@ -209,9 +231,9 @@ const steps = [
   },
   {
     number: "04",
-    title: "Sync to Apple or Google Calendar.",
+    title: " Live sync to Apple or Google Calendar.",
     description:
-      "One tap and your subscriptions show up where you already live. No extra apps, no extra setup. Your renewals become calendar events.",
+      "One tap and your subscriptions show up where you already live. No extra apps, no extra setup. Your renewals dynamically become calendar events.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
         <rect
