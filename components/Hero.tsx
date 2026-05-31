@@ -137,8 +137,6 @@ export default function Hero() {
           <motion.div
             ref={mockupRef}
             style={{ scale }}
-            animate={{ y: [0, -7, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
           >
           <div className="rounded-[var(--radius-2xl)] overflow-hidden border border-[var(--color-border)] shadow-[0_4px_12px_oklch(0_0_0_/_0.06),0_16px_40px_oklch(0_0_0_/_0.12),0_32px_80px_oklch(0_0_0_/_0.10)]">
             <video
