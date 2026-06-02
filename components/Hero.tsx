@@ -2,14 +2,22 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useSkipEntry } from "@/lib/useSkipEntry";
+import { FOUNDERS_CAP } from "@/lib/foundersConstants";
 
-export default function Hero() {
+export default function Hero({ foundersTaken }: { foundersTaken: number | null }) {
+  const spotsLeft =
+    foundersTaken === null ? null : Math.max(0, FOUNDERS_CAP - foundersTaken);
+  const showFoundersBadge = spotsLeft !== null && spotsLeft > 0;
   const mockupRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: mockupRef,
     offset: ["start end", "end start"],
   });
   const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.88, 1, 1, 0.88]);
+  const skipEntry = useSkipEntry();
+  const entryInitial = (value: Record<string, number>) =>
+    skipEntry ? false : value;
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-16">
@@ -44,19 +52,49 @@ export default function Hero() {
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center flex flex-col items-center gap-8">
         {/* Eyebrow badge */}
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={entryInitial({ opacity: 0, y: 8 })}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-wide uppercase px-3 py-1.5 rounded-full bg-[oklch(0.76_0.20_122_/_0.12)] text-[oklch(0.35_0.12_122)] border border-[oklch(0.76_0.20_122_/_0.25)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[oklch(0.55_0.18_122)] inline-block" />
-            AI-powered subscription tracking
-          </span>
+          {showFoundersBadge ? (
+            <a
+              href="#pricing"
+              className="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[oklch(0.76_0.20_122_/_0.35)] bg-[oklch(0.76_0.20_122_/_0.10)] hover:bg-[oklch(0.76_0.20_122_/_0.18)] hover:border-[oklch(0.76_0.20_122_/_0.55)] transition-all duration-200 cursor-pointer"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[oklch(0.55_0.18_122)] opacity-60" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[oklch(0.50_0.18_122)]" />
+              </span>
+              <span className="text-xs font-semibold tracking-wide uppercase text-[oklch(0.32_0.12_122)]">
+                Only {spotsLeft} founder spot{spotsLeft === 1 ? "" : "s"} left
+              </span>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                className="text-[oklch(0.45_0.14_122)] group-hover:translate-x-0.5 transition-transform duration-200"
+              >
+                <path
+                  d="M2.5 6h7M6 2.5l3.5 3.5L6 9.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
+          ) : (
+            <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-wide uppercase px-3 py-1.5 rounded-full bg-[oklch(0.76_0.20_122_/_0.12)] text-[oklch(0.35_0.12_122)] border border-[oklch(0.76_0.20_122_/_0.25)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[oklch(0.55_0.18_122)] inline-block" />
+              AI-powered subscription tracking
+            </span>
+          )}
         </motion.div>
 
         {/* Headline */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={entryInitial({ opacity: 0, y: 12 })}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.08 }}
           className="flex flex-col items-center gap-3"
@@ -86,7 +124,7 @@ export default function Hero() {
 
         {/* Subheading */}
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
+          initial={entryInitial({ opacity: 0, y: 12 })}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.16 }}
           className="text-lg sm:text-xl text-[var(--color-muted-foreground)] leading-relaxed max-w-2xl font-[450]"
@@ -98,14 +136,14 @@ export default function Hero() {
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={entryInitial({ opacity: 0, y: 12 })}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.24 }}
           className="flex flex-col sm:flex-row items-center gap-3"
         >
           <a
             id="hero-cta"
-            href="https://app.subparse.com"
+            href="https://app.subparse.com/signup"
             className="brand-gradient text-[oklch(0.25_0.10_122)] font-semibold px-7 py-3.5 rounded-[var(--radius-xl)] shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)] hover:opacity-90 active:scale-[0.98] transition-all duration-200 text-base"
           >
             Start for free
@@ -129,7 +167,7 @@ export default function Hero() {
 
         {/* App UI Mockup */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={entryInitial({ opacity: 0, y: 24 })}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.36 }}
           className="w-full max-w-3xl mt-4"

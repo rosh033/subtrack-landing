@@ -4,15 +4,18 @@ import Steps from "@/components/Steps";
 import Pricing from "@/components/Pricing";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import { getFoundersTakenCount } from "@/lib/foundersCount";
 
-export default function Home() {
+export default async function Home() {
+  const foundersTaken = await getFoundersTakenCount();
+
   return (
     <>
       <Nav />
       <main>
-        <Hero />
+        <Hero foundersTaken={foundersTaken} />
         <Steps />
-        <Pricing />
+        <Pricing foundersTaken={foundersTaken} />
         <FinalCTA />
       </main>
       <Footer />

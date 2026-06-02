@@ -2,9 +2,24 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { FOUNDERS_CAP } from "@/lib/foundersConstants";
 
-const tiers = [
-  {
+type Tier = {
+  name: string;
+  price: string;
+  period: string;
+  description: string;
+  features: string[];
+  cta: string;
+  ctaHref: string;
+  highlighted: boolean;
+  badge?: string;
+  spotsTotal?: number;
+  spotsTaken?: number;
+};
+
+function buildTiers(foundersTaken: number | null): Tier[] {
+  const freeTier: Tier = {
     name: "Free",
     price: "$0",
     period: "forever",
@@ -17,10 +32,32 @@ const tiers = [
       "Calendar sync",
     ],
     cta: "Start for free",
-    ctaHref: "#",
+    ctaHref: "https://app.subparse.com/signup",
     highlighted: false,
-  },
-  {
+  };
+
+  const proTier: Tier = {
+    name: "Pro",
+    price: "$30",
+    period: "per year",
+    description: "Everything in Founders, billed annually.",
+    features: [
+      "Unlimited AI captures",
+      "Unlimited subscriptions",
+      "Dashboard overview",
+      "Day-before renewal reminders",
+      "Calendar sync",
+      "Priority support",
+    ],
+    cta: "Start Pro",
+    ctaHref: "https://app.subparse.com/signup",
+    highlighted: false,
+  };
+
+  const soldOut = foundersTaken !== null && foundersTaken >= FOUNDERS_CAP;
+  if (soldOut) return [freeTier, proTier];
+
+  const foundersTier: Tier = {
     name: "Founders",
     price: "$20",
     period: "one time",
@@ -35,30 +72,16 @@ const tiers = [
       "Priority support",
     ],
     cta: "Get lifetime access",
-    ctaHref: "#",
+    ctaHref: "https://app.subparse.com/signup?plan=founders",
     highlighted: true,
     badge: "Best value",
-    spotsTotal: 10,
-    spotsTaken: 6,
-  },
-  {
-    name: "Pro",
-    price: "$30",
-    period: "per year",
-    description: "Everything in Founders, billed annually.",
-    features: [
-      "Unlimited AI captures",
-      "Unlimited subscriptions",
-      "Dashboard overview",
-      "Day-before renewal reminders",
-      "Calendar sync",
-      "Priority support",
-    ],
-    cta: "Start Pro",
-    ctaHref: "#",
-    highlighted: false,
-  },
-];
+    ...(foundersTaken !== null
+      ? { spotsTotal: FOUNDERS_CAP, spotsTaken: foundersTaken }
+      : {}),
+  };
+
+  return [freeTier, foundersTier, proTier];
+}
 
 function CheckIcon() {
   return (
@@ -81,11 +104,20 @@ function CheckIcon() {
   );
 }
 
-export default function Pricing() {
+export default function Pricing({
+  foundersTaken,
+}: {
+  foundersTaken: number | null;
+}) {
+  const tiers = buildTiers(foundersTaken);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-60px" });
+  const gridClass =
+    tiers.length === 2
+      ? "grid md:grid-cols-2 gap-5 items-start md:max-w-2xl md:mx-auto"
+      : "grid md:grid-cols-3 gap-5 items-start";
 
   return (
     <section id="pricing" className="py-28 px-6 bg-[var(--color-muted)]">
@@ -119,7 +151,7 @@ export default function Pricing() {
         </div>
 
         {/* Cards */}
-        <div ref={ref} className="grid md:grid-cols-3 gap-5 items-start">
+        <div ref={ref} className={gridClass}>
           {tiers.map((tier, i) => (
             <motion.div
               key={tier.name}
@@ -167,30 +199,40 @@ export default function Pricing() {
               </div>
 
               {/* Founders limited spots */}
-              {tier.highlighted && tier.spotsTotal && tier.spotsTaken && (
-                <div className="flex flex-col gap-1.5">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-[oklch(0.76_0.20_122)] font-semibold">
-                      {tier.spotsTaken}/{tier.spotsTotal} spots taken
-                    </span>
-                    <span className="text-[oklch(0.65_0_0)]">
-                      {tier.spotsTotal - tier.spotsTaken} left
-                    </span>
+              {tier.highlighted &&
+                tier.spotsTotal !== undefined &&
+                tier.spotsTaken !== undefined && (
+                  <div className="flex flex-col gap-1.5">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-[oklch(0.76_0.20_122)] font-semibold">
+                        {tier.spotsTaken}/{tier.spotsTotal} spots taken
+                      </span>
+                      <span
+                        className={
+                          tier.spotsTotal - tier.spotsTaken <= 5
+                            ? "text-[oklch(0.76_0.20_122)] font-bold"
+                            : "text-[oklch(0.65_0_0)]"
+                        }
+                      >
+                        {tier.spotsTotal - tier.spotsTaken <= 5
+                          ? `Only ${tier.spotsTotal - tier.spotsTaken} left!`
+                          : `${tier.spotsTotal - tier.spotsTaken} left`}
+                      </span>
+                    </div>
+                    <div className="h-1.5 rounded-full bg-[oklch(0.3_0_0)] overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={
+                          isInView
+                            ? { width: `${(tier.spotsTaken / tier.spotsTotal) * 100}%` }
+                            : {}
+                        }
+                        transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                        className="h-full rounded-full brand-gradient"
+                      />
+                    </div>
                   </div>
-                  <div className="h-1.5 rounded-full bg-[oklch(0.3_0_0)] overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={
-                        isInView
-                          ? { width: `${(tier.spotsTaken / tier.spotsTotal) * 100}%` }
-                          : {}
-                      }
-                      transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-                      className="h-full rounded-full brand-gradient"
-                    />
-                  </div>
-                </div>
-              )}
+                )}
 
               {/* CTA */}
               <a

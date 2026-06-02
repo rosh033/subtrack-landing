@@ -11,24 +11,11 @@ const LOGO_DARK =
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const [showCTA, setShowCTA] = useState(false);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 16);
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
-  }, []);
-
-  useEffect(() => {
-    const target = document.getElementById("hero-cta");
-    if (!target) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setShowCTA(!entry.isIntersecting),
-      { threshold: 0 }
-    );
-    observer.observe(target);
-    return () => observer.disconnect();
   }, []);
 
   return (
@@ -59,18 +46,21 @@ export default function Nav() {
           />
         </Link>
 
-        {/* Mobile CTA */}
-        <a
-          href="https://app.subparse.com"
-          aria-hidden={!showCTA}
-          className={`md:hidden brand-gradient text-[oklch(0.25_0.10_122)] text-sm font-semibold px-4 py-2 rounded-[var(--radius-lg)] shadow-[var(--shadow-sm)] hover:opacity-90 active:scale-[0.98] transition-all duration-200 ${
-            showCTA
-              ? "opacity-100 translate-y-0 pointer-events-auto"
-              : "opacity-0 -translate-y-1 pointer-events-none"
-          }`}
-        >
-          Start
-        </a>
+        {/* Mobile CTAs */}
+        <div className="md:hidden flex items-center gap-3">
+          <a
+            href="https://app.subparse.com/login"
+            className="inline-flex items-center leading-none text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors"
+          >
+            Log in
+          </a>
+          <a
+            href="https://app.subparse.com/signup"
+            className="brand-gradient text-[oklch(0.25_0.10_122)] text-sm font-semibold px-4 py-2 rounded-[var(--radius-lg)] shadow-[var(--shadow-sm)] hover:opacity-90 active:scale-[0.98] transition-all duration-200"
+          >
+            Start
+          </a>
+        </div>
 
         <div className="hidden md:flex items-center gap-7">
           <Link
@@ -86,13 +76,14 @@ export default function Nav() {
             Pricing
           </Link>
           <a
-            href="https://app.subparse.com"
-            aria-hidden={!showCTA}
-            className={`brand-gradient text-[oklch(0.25_0.10_122)] text-sm font-semibold px-4 py-2 rounded-[var(--radius-lg)] shadow-[var(--shadow-sm)] hover:opacity-90 active:scale-[0.98] transition-all duration-200 ${
-              showCTA
-                ? "opacity-100 translate-y-0 pointer-events-auto"
-                : "opacity-0 -translate-y-1 pointer-events-none"
-            }`}
+            href="https://app.subparse.com/login"
+            className="inline-flex items-center leading-none text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors"
+          >
+            Log in
+          </a>
+          <a
+            href="https://app.subparse.com/signup"
+            className="brand-gradient text-[oklch(0.25_0.10_122)] text-sm font-semibold px-4 py-2 rounded-[var(--radius-lg)] shadow-[var(--shadow-sm)] hover:opacity-90 active:scale-[0.98] transition-all duration-200"
           >
             Start for free
           </a>
