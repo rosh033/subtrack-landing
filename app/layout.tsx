@@ -15,13 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SubParse — Never waste money on forgotten renewals again",
+  title: "SubParse | Track Subscriptions. Cancel Before You're Charged.",
   description:
-    "SubParse tracks every subscription and free trial you have, sends you a reminder the day before each renewal, and syncs to your calendar. One place for all your subscriptions.",
+    "The frictionless way to manage subscriptions and free trials. Upload a screenshot, let AI do the rest, and never get caught by a surprise renewal.",
   openGraph: {
-    title: "SubParse — Never waste money on forgotten renewals again",
+    title: "SubParse | Track Subscriptions. Cancel Before You're Charged.",
     description:
-      "AI-powered subscription tracking. Stop losing money to renewals you forgot about.",
+      "The frictionless way to manage subscriptions and free trials. Upload a screenshot, let AI do the rest, and never get caught by a surprise renewal.",
     type: "website",
   },
 };
