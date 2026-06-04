@@ -135,8 +135,8 @@ export default function Hero({ foundersTaken }: { foundersTaken: number | null }
           transition={{ duration: 0.55, delay: 0.16 }}
           className="text-lg sm:text-xl text-[var(--color-muted-foreground)] leading-relaxed max-w-2xl font-[450]"
         >
-          Add any subscription in seconds. Screenshot or manual, we&apos;ll
-          remind you before every renewal.
+          SubParse lets you add any subscription in seconds. Screenshot
+          or manual, we&apos;ll remind you before every renewal.
         </motion.p>
 
         {/* CTAs */}
