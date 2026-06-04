@@ -21,19 +21,6 @@ export default function Hero({ foundersTaken }: { foundersTaken: number | null }
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-16">
-      {/* Radial lime glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 overflow-hidden flex items-center justify-center"
-      >
-        <div
-          className="w-[900px] h-[600px] rounded-full opacity-30"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, oklch(0.76 0.20 122 / 0.18) 0%, oklch(0.76 0.20 122 / 0.06) 45%, transparent 70%)",
-          }}
-        />
-      </div>
 
       {/* Subtle grid overlay — extends below section so fade bleeds into next section */}
       <div
@@ -99,7 +86,26 @@ export default function Hero({ foundersTaken }: { foundersTaken: number | null }
           transition={{ duration: 0.55, delay: 0.08 }}
           className="flex flex-col items-center gap-3"
         >
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-[-0.03em] leading-[1.1] text-[var(--color-foreground)]">
+          {/* Mobile headline */}
+          <h1 className="sm:hidden text-5xl font-bold tracking-[-0.03em] leading-[1.1] text-[var(--color-foreground)]">
+            Losing{" "}
+            <span
+              className="relative inline-block px-2"
+              style={{
+                background:
+                  "linear-gradient(135deg, #E8FF80 0%, #D4EE58 100%)",
+                borderRadius: "0.35em",
+                paddingLeft: "0.25em",
+                paddingRight: "0.25em",
+              }}
+            >
+              $205 a year
+            </span>
+            <br />
+            to forgotten renewals?
+          </h1>
+          {/* Desktop headline */}
+          <h1 className="hidden sm:block sm:text-6xl md:text-7xl font-bold tracking-[-0.03em] leading-[1.1] text-[var(--color-foreground)]">
             The average person
             <br />
             <span className="relative inline-block">
@@ -114,7 +120,7 @@ export default function Hero({ foundersTaken }: { foundersTaken: number | null }
                   paddingRight: "0.25em",
                 }}
               >
-                $67 a year
+                $205 a year
               </span>
             </span>
             <br />
@@ -129,9 +135,8 @@ export default function Hero({ foundersTaken }: { foundersTaken: number | null }
           transition={{ duration: 0.55, delay: 0.16 }}
           className="text-lg sm:text-xl text-[var(--color-muted-foreground)] leading-relaxed max-w-2xl font-[450]"
         >
-          SubParse gives you one place to see every subscription and free trial
-          you have. Get a reminder the day before each renewal and never pay for
-          something you forgot about.
+          Add any subscription in seconds. Screenshot or manual, we&apos;ll
+          remind you before every renewal.
         </motion.p>
 
         {/* CTAs */}
