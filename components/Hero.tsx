@@ -36,7 +36,7 @@ export default function Hero({ foundersTaken }: { foundersTaken: number | null }
         }}
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center flex flex-col items-center gap-8">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center flex flex-col items-center gap-5 sm:gap-8">
         {/* Eyebrow badge */}
         <motion.div
           initial={entryInitial({ opacity: 0, y: 8 })}

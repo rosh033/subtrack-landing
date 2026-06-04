@@ -46,18 +46,18 @@ export default function Footer() {
           >
             Pricing
           </Link>
-          <a
-            href="#"
+          <Link
+            href="/legal#privacy"
             className="text-xs text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors"
           >
             Privacy
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            href="/legal#terms"
             className="text-xs text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors"
           >
             Terms
-          </a>
+          </Link>
         </div>
 
         <p className="text-xs text-[var(--color-muted-foreground)]">
